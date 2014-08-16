@@ -1,8 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Placeholder\Scripts\NoteBehaviorScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Assets\Placeholder\Scripts\NoteBehaviorScript.cs" Line="7" Column="25" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs" Line="43" Column="3" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Keys\KeyListenerBehavior.cs" Line="20" Column="39" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteBehavior.cs" Line="102" Column="19" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Constants\Constants.cs" Line="4" Column="41" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteManager.cs" Line="84" Column="45" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Keys\KeyManager.cs" Line="19" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\SceneController.cs" Line="14" Column="36" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Keys\KeyHelper.cs" Line="7" Column="15" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteCollider.cs" Line="24" Column="129" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs" Line="7" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

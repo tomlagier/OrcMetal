@@ -46,7 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Placeholder\Scripts\NoteBehaviorScript.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Constants\Constants.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Keys\KeyHelper.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Keys\KeyListenerBehavior.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Keys\KeyManager.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Notes\NoteBehavior.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Notes\NoteCollider.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Notes\NoteManager.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\SceneController.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\HealthManager.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\MoraleManager.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\ScoreManager.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/McMouse/Documents/OrcMetal/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
