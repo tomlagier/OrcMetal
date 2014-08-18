@@ -16,8 +16,33 @@ public class NoteBehavior : MonoBehaviour {
 	//The X distance between notes
 	private float _distanceBetweenNotes = 0.09f;
 
+	//The note collider bounds
+	private float _targetTopBound { get; set; }
+	private float _targetBottomBound { get; set; }
+
+	//The lute window bound
+	private float _windowTopBound { get; set; }
+
+	//Whether the note is within the target bounds
+	private bool _eligible = false;
+
+	//Point value of the note
+	private int _pointValue { get; set; }
+
+	//Note scored event
+	public delegate void NotePoints(int value);
+	public event NotePoints OnNotePoints;
+
+	//Note hit event
+	public delegate void NoteHit();
+	public event NoteHit OnNoteHit;
+
+	//Note missed event
+	public delegate void NoteMissed();
+	public event NoteMissed OnNoteMissed;
+	
 	//Creation function used by NoteManager
-	public static NoteBehavior Create(float speed, GameObject template, int position){
+	public static void Create(float speed, GameObject template, int position, float topBound, float bottomBound, float windowBound, int pointValue){
 
 		//Create a new note from the template
 		GameObject newNote = (GameObject) Instantiate (template);
@@ -27,11 +52,22 @@ public class NoteBehavior : MonoBehaviour {
 		newNoteBehavior._moveSpeed = speed;
 		newNoteBehavior.SetInitialPosition (position);
 
-		return newNoteBehavior;
+		//Set bounds
+		newNoteBehavior._targetTopBound = topBound;
+		newNoteBehavior._targetBottomBound = bottomBound;
+		newNoteBehavior._windowTopBound = windowBound;
+		newNoteBehavior._pointValue = pointValue;
+
+		GameObject scoreControllerObject = GameObject.FindWithTag("GameController");
+		if(scoreControllerObject != null){
+			ScoreController scoreController = scoreControllerObject.GetComponent<ScoreController>();
+			scoreController.addNoteListener(newNoteBehavior);
+		}
+
 	}
 
 	// Use this for initialization
-	void Start () {
+	private void Start () {
 
 		//Set initial state & color
 		_state = Constants.NOTE_INITIAL;
@@ -39,15 +75,43 @@ public class NoteBehavior : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		// Moves the notes up the screen
 		transform.position += new Vector3 (0, _moveSpeed);
+		CheckOffScreen ();
+		CheckEligibleOrFailed ();
+	}
+
+	private float GetTop(){
+		return transform.position.y + (renderer.bounds.size.y / 2);
 	}
 	
-	//Destroy the note
-	public void Destroy()
-	{
-		Destroy (gameObject);
+	private void CheckOffScreen(){
+		if(GetTop() > _windowTopBound)
+		{
+			Destroy (gameObject); 
+		}
+	}
+
+	private void CheckEligibleOrFailed(){
+		float top = GetTop ();
+		if (top >= _targetBottomBound && top <= _targetTopBound) {
+			if(!_eligible){
+				_eligible = true;
+				KeyListenerBehavior listener = KeyManager.GetKeyListenerByPosition(_position);
+				listener.OnKeyPress += SetSuccess;
+			}
+		}
+
+		if (top > _targetTopBound) {
+			if(_eligible){
+				_eligible = false;
+				KeyListenerBehavior listener = KeyManager.GetKeyListenerByPosition(_position);
+				listener.OnKeyPress -= SetSuccess;
+				SetFailed();
+			}
+		}
+
 	}
 
 	//Sets the initial X position
@@ -63,6 +127,8 @@ public class NoteBehavior : MonoBehaviour {
 		float finalPositionLeft = transform.position.x + (offsetPositionLeft * baseLeftOffset);
 		transform.position = new Vector3(finalPositionLeft, transform.position.y, 0);
 	}
+
+	//Helper functions
 
 	//Sets note color based on state
 	public void SetColorFromState(){
@@ -93,15 +159,37 @@ public class NoteBehavior : MonoBehaviour {
 		SetColorFromState ();
 	}
 
+	public void SetSuccess()
+	{
+		if(_state != Constants.NOTE_SUCCESS)
+		{
+			SetState(Constants.NOTE_SUCCESS);
+			if(OnNoteHit != null)
+			{
+				OnNoteHit();
+			}
+
+			if(OnNotePoints != null)
+			{
+				OnNotePoints(_pointValue);
+			}
+		}
+	}
+	
+	public void SetFailed()
+	{
+		if(_state != Constants.NOTE_SUCCESS){
+			SetState (Constants.NOTE_FAILURE);
+			if(OnNoteMissed != null){
+				OnNoteMissed();
+			}
+		}
+	}
+
 	//State getter
 	public int GetState()
 	{
 		return _state;
-	}
-
-	//Position getter
-	public int GetPosition(){
-		return _position;
 	}
 
 }

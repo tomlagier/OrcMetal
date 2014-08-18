@@ -8,6 +8,10 @@ public class KeyListenerBehavior : MonoBehaviour {
 	//The integer X position of the key
 	public int _position;
 
+	//The event that gets fired when this key is pressed
+	public delegate void KeyPressed ();
+	public event KeyPressed OnKeyPress;
+
 	//Length of time a key remains "active" while being held down
 	public float _cooldown = 0.2f;
 
@@ -25,19 +29,21 @@ public class KeyListenerBehavior : MonoBehaviour {
 
 		//Initialize to inactive state, and set up the internal associated key
 		_state = Constants.KEY_INACTIVE;
-		_key = KeyHelper.GetKeyFromPosition (_position);
+		_key = KeyManager.GetKeyFromPosition (_position);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void OnGUI () {
 
 		//Triggered once per keypress, set time to prevent holding down a key to hit all notes.
 		if(Input.GetButtonDown (_key)){
 			_lastPress = Time.time;
 		}
 
+		bool KeyPressed = Input.GetButton (_key);
+
 		//Set key color based on state
-		if(Input.GetButton (_key)){
+		if(KeyPressed){
 			if (Time.time < _lastPress + _cooldown)	{
 				_state = Constants.KEY_ACTIVE;
 			} else {
@@ -48,6 +54,10 @@ public class KeyListenerBehavior : MonoBehaviour {
 		}
 
 		SetColorFromState();
+
+		if (OnKeyPress != null && _state == Constants.KEY_ACTIVE) {
+			OnKeyPress();
+		}
 	}
 	
 

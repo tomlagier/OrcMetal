@@ -11,7 +11,7 @@ public class NoteCollider : MonoBehaviour {
 	public float _targetBottom;
 
 	//Offset from the top of the note target window gameobject to the center of the target window. 
-	private float _targetOffset = 0.4f;
+	private float _targetOffset = 0.2f;
 
 	// Use this for initialization
 	void Start () {
@@ -21,19 +21,13 @@ public class NoteCollider : MonoBehaviour {
 		_targetBottom = transform.position.y + (renderer.bounds.size.y / 2) - _targetOffset - (_windowWidth / 2);
 	}
 
-	//Returns a position status based on the target window and a given position - above the target, in the target, or below target.
-	public Constants.Collision CollisionStatus(float position)
+	public float GetTop()
 	{
-		Constants.Collision status;
+		return _targetTop;
+	}
 
-		if (position > _targetTop) {
-			status = Constants.Collision.ABOVE_TARGET;
-		} else if (position <= _targetTop && position >= _targetBottom ){
-			status = Constants.Collision.IN_TARGET;
-		} else {
-			status = Constants.Collision.BELOW_TARGET;
-		}
-
-		return status;
+	public float GetBottom()
+	{
+		return _targetBottom;
 	}
 }

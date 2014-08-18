@@ -10,15 +10,13 @@ public class NoteManager : MonoBehaviour {
 	//TODO Map to sensible units rather than Unity units
 	public float _noteCreationSpeed;
 	public float _noteSpeed;
+	public int _noteValue = 100;
 
 	//Prefab note template
 	private GameObject _noteTemplate;
 
 	//Collider for checking note targets
 	private NoteCollider _noteCollider;
-
-	//All notes
-	private List<NoteBehavior> _notes = new List<NoteBehavior> ();
 
 	//Time to next note spawning
 	private float _nextNote = 1;
@@ -40,59 +38,15 @@ public class NoteManager : MonoBehaviour {
 			_nextNote = _noteCreationSpeed + Time.time;
 			addNote(Random.Range (0,4));
 		}
-
-		//Check for collisions - where the note is in or above the target
-		checkCollisions ();
-
-		//Remove notes that are outside the backboard
-		removePastNotes ();
 	}
 
 	//Add a new note at the specified position
 	void addNote(int position) {
+		float windowTop = (renderer.bounds.size.y / 2) + transform.position.y;
+		float targetTopBounds = _noteCollider.GetTop ();
+		float targetBottomBounds = _noteCollider.GetBottom ();
 
-		NoteBehavior newNote = NoteBehavior.Create (_noteSpeed, _noteTemplate, position);
-		_notes.Add (newNote);
+		NoteBehavior.Create (_noteSpeed, _noteTemplate, position, targetTopBounds, targetBottomBounds, windowTop, _noteValue);
 	}
 
-	//Remove notes that have passed off the lute background
-	void removePastNotes()
-	{
-		float topBound = (renderer.bounds.size.y / 2) + transform.position.y;
-
-		//Destroy all notes off the background
-		_notes
-			.Where (note => note.ExceedsBounds(topBound))
-			.ToList ()
-			.ForEach( note => note.Destroy () );
-
-		//Return all remaining notes to the notes list
-		_notes = _notes
-					.Where (note => !note.ExceedsBounds (topBound))
-					.ToList ();
-	
-
-	}
-
-	//Check whether a note should be flagged as a miss or a possible success
-	void checkCollisions()
-	{
-		//Attach to the ScoreController
-		//TODO Figure out a better way to do this
-		ScoreController controller = GetComponentInParent<ScoreController> ();
-
-		//Check the collision status for each note
-		_notes.ForEach (delegate(NoteBehavior note) {
-			switch (_noteCollider.CollisionStatus (note.transform.position.y)){
-				case Constants.Collision.ABOVE_TARGET:
-					controller.MightMissNote(note);
-					break;
-				case Constants.Collision.IN_TARGET:
-					controller.MightHitNote(note);
-					break;
-				default:
-					break;
-			}
-		});
-	}
 }
