@@ -16,6 +16,6 @@ Platform assembly: C:\Users\McMouse\Documents\OrcMetal\Mockups\Placeholder Build
 Loading C:\Users\McMouse\Documents\OrcMetal\Mockups\Placeholder Builds\PlaceholderBuild1_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 - Completed reload, in  0.069 seconds
 desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
-<RI> Initializing input.
-<RI> Input initialized.
+<RI> Initializing input.
+<RI> Input initialized.
 Platform assembly: C:\Users\McMouse\Documents\OrcMetal\Mockups\Placeholder Builds\PlaceholderBuild1_Data\Managed\System.Core.dll (this message is harmless)
