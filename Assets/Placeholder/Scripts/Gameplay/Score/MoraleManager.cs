@@ -21,15 +21,20 @@ public class MoraleManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		//Initialize starting morale and next decay timer
 		_current = _startValue;
 		_nextDecay = _startDecayDelay + Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		//Check if it is time to decay morale
 		CheckDecay ();
 	}
 
+	//If it is time to reduce morale from decay, update morale and GUI text 
 	private void CheckDecay(){
 		if (Time.time > _nextDecay) {
 			_nextDecay = Time.time + _decayRate;
@@ -38,6 +43,7 @@ public class MoraleManager : MonoBehaviour {
 		}
 	}
 
+	//Increase morale on note hit, to maximum of maxValue, update morale text, and return whether we are currently in high morale threshold
 	public bool NoteHit(){
 		if (_current < (_maxValue - _noteHit)) {
 			_current += _noteHit;
@@ -54,6 +60,7 @@ public class MoraleManager : MonoBehaviour {
 		return false;
 	}
 
+	//Decrease morale to a minimum of 0, update GUI text, and return whether we are in low morale threshold
 	public bool NoteMiss(){
 		if(_current > _noteMiss){
 			_current -= _noteMiss;
@@ -70,10 +77,12 @@ public class MoraleManager : MonoBehaviour {
 		return false;
 	}
 
+	//Getter for current morale
 	public int GetMorale(){
 		return _current;
 	}
 
+	//Update morale text
 	private void UpdateMoraleText()
 	{
 		moraleText.text = "Morale: " + _current; 

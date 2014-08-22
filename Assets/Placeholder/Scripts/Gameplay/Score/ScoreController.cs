@@ -24,24 +24,25 @@ public class ScoreController : MonoBehaviour {
 		_playerHealthManager.BindDeathEvent (Lose);
 		_enemyHealthManager.BindDeathEvent (Win);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
+	//Event handler for game win
 	public void Win(){
 		Debug.Log ("Won!");
 	}
 
+	//Event handler for game lost
 	public void Lose(){
 		Debug.Log ("Lost!");
 	}
 
+	//Event handler when a note is hit
 	public void NoteHit(int value){
+
+		//Add points and increment combo
 		_scoreManager.AddScore (value);
 		_comboManager.AddCombo ();
 
+		//Update morale. If morale above the attack threshold, attempt to execute player attack and resolve damage
 		if (_moraleManager.NoteHit ()) {
 			if(_playerHealthManager.CanAttack ()){
 				_enemyHealthManager.TakeDamage(_playerHealthManager.Attack ());
@@ -49,9 +50,13 @@ public class ScoreController : MonoBehaviour {
 		}
 	}
 
+	//Event handler when a note is missed
 	public void NoteMissed(){
+
+		//Break the combo
 		_comboManager.BreakCombo ();
 
+		//Update morale. If morale below the enemy attack threshold, attempt to execute enemy attack and resolve damage
 		if (_moraleManager.NoteMiss ()) {
 			if(_enemyHealthManager.CanAttack ()){
 				_playerHealthManager.TakeDamage(_enemyHealthManager.Attack ());

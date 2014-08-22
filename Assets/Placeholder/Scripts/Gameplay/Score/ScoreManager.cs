@@ -10,20 +10,19 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		//Initialize score
 		_score = 0;
 		UpdateScoreText ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+	//Update score GUI text	
 	void UpdateScoreText()
 	{
 		_scoreText.text = "Score: " + _score; 
 	}
 
+	//Increment score and update text
 	public void AddScore (int newScoreValue)
 	{
 		_score += newScoreValue;
