@@ -55,10 +55,14 @@
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\Notes\NoteManager.cs" />
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\SceneController.cs" />
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\ComboManager.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\EnemyHealthManager.cs" />
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\HealthManager.cs" />
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\MoraleManager.cs" />
+     <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\PlayerHealthManager.cs" />
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs" />
      <Compile Include="Assets\Placeholder\Scripts\Gameplay\Score\ScoreManager.cs" />
+     <Compile Include="Assets\Placeholder\Tests\Scene1TestCaseRunner.cs" />
+     <Compile Include="Assets\Placeholder\Tests\ScoreControllerTestCase.cs" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/McMouse/Documents/OrcMetal/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>

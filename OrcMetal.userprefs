@@ -1,16 +1,16 @@
 ﻿<Properties GitUserInfo="UsingMD">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Placeholder\Tests\Scene1TestCaseRunner.cs">
     <Files>
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs" Line="11" Column="37" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Keys\KeyListenerBehavior.cs" Line="17" Column="2" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteBehavior.cs" Line="33" Column="42" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Constants\Constants.cs" Line="4" Column="41" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteManager.cs" Line="23" Column="2" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Keys\KeyManager.cs" Line="42" Column="3" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\SceneController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteCollider.cs" Line="14" Column="35" />
-      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ScoreManager.cs" Line="12" Column="17" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\HealthManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\MoraleManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ScoreController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ScoreManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Score\ComboManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Keys\KeyListenerBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\Notes\NoteBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\Placeholder\Scripts\Gameplay\SceneController.cs" Line="11" Column="3" />
+      <File FileName="Assets\Placeholder\Tests\Scene1TestCaseRunner.cs" Line="12" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

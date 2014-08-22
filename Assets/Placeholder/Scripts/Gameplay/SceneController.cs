@@ -8,7 +8,7 @@ public class SceneController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_scoreController = GetComponent<ScoreController> ();
+		//_scoreController = GetComponent<ScoreController> ();
 	}
 	
 	// Update is called once per frame

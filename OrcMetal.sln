@@ -5,6 +5,8 @@ Project("{E6E23B39-9467-324C-16CA-52D2619F8CF9}") = "OrcMetal", "Assembly-CSharp
 EndProject
 Project("{E6E23B39-9467-324C-16CA-52D2619F8CF9}") = "OrcMetal", "Assembly-CSharp.csproj", "{ED11739D-2038-2FBF-930F-33F9C5D1090D}"
 EndProject
+Project("{E6E23B39-9467-324C-16CA-52D2619F8CF9}") = "OrcMetal", "Assembly-CSharp-Editor-firstpass.csproj", "{2C4C9294-BE97-56F4-33BC-D4E94FDBFE2A}"
+EndProject
 Project("{E6E23B39-9467-324C-16CA-52D2619F8CF9}") = "OrcMetal", "Assembly-UnityScript-firstpass.unityproj", "{A9CED084-0F2E-3B43-415F-151CA70A1670}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{ED11739D-2038-2FBF-930F-33F9C5D1090D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED11739D-2038-2FBF-930F-33F9C5D1090D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED11739D-2038-2FBF-930F-33F9C5D1090D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C4C9294-BE97-56F4-33BC-D4E94FDBFE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C4C9294-BE97-56F4-33BC-D4E94FDBFE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C4C9294-BE97-56F4-33BC-D4E94FDBFE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C4C9294-BE97-56F4-33BC-D4E94FDBFE2A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9CED084-0F2E-3B43-415F-151CA70A1670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9CED084-0F2E-3B43-415F-151CA70A1670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9CED084-0F2E-3B43-415F-151CA70A1670}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																												GlobalSection(MonoDevelopProperties) = preSolution
+																																																																						GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

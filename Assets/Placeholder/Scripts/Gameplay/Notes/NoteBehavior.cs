@@ -29,19 +29,14 @@ public class NoteBehavior : MonoBehaviour {
 	//Point value of the note
 	private int _pointValue { get; set; }
 
-	//Note scored event
-	public delegate void NotePoints(int value);
-	public event NotePoints OnNotePoints;
+	//ScoreManager reference
+	private ScoreController _scoreController;
 
-	//Note hit event
-	public delegate void NoteHit();
-	public event NoteHit OnNoteHit;
+	//KeyListener refrence
+	private KeyListenerBehavior _listener;
 
-	//Note missed event
-	public delegate void NoteMissed();
-	public event NoteMissed OnNoteMissed;
-	
-	//Creation function used by NoteManager
+	//Creation function to spawn a new note, allowing easy modification of attributes in NoteManager.
+	//Defaults could be managed in the prefab, but this I find easier
 	public static void Create(float speed, GameObject template, int position, float topBound, float bottomBound, float windowBound, int pointValue){
 
 		//Create a new note from the template
@@ -58,11 +53,13 @@ public class NoteBehavior : MonoBehaviour {
 		newNoteBehavior._windowTopBound = windowBound;
 		newNoteBehavior._pointValue = pointValue;
 
+		//Pass a reference to ScoreController so that points can be updated
 		GameObject scoreControllerObject = GameObject.FindWithTag("GameController");
 		if(scoreControllerObject != null){
-			ScoreController scoreController = scoreControllerObject.GetComponent<ScoreController>();
-			scoreController.addNoteListener(newNoteBehavior);
+			newNoteBehavior._scoreController = scoreControllerObject.GetComponent<ScoreController>();
 		}
+
+		newNoteBehavior._listener = KeyManager.GetKeyListenerByPosition (position);
 
 	}
 
@@ -78,14 +75,23 @@ public class NoteBehavior : MonoBehaviour {
 	private void Update () {
 		// Moves the notes up the screen
 		transform.position += new Vector3 (0, _moveSpeed);
+
+		//Remove note if offscreen
 		CheckOffScreen ();
-		CheckEligibleOrFailed ();
+
+		//Check if note is within target window && bind handler
+		CheckEligible ();
+
+		//Remove handler and fail note if not hit within window
+		CheckFailed ();
 	}
 
+	//Helper to get the top of the note
 	private float GetTop(){
 		return transform.position.y + (renderer.bounds.size.y / 2);
 	}
-	
+
+	//Destroy note if it falls offscreen
 	private void CheckOffScreen(){
 		if(GetTop() > _windowTopBound)
 		{
@@ -93,25 +99,37 @@ public class NoteBehavior : MonoBehaviour {
 		}
 	}
 
-	private void CheckEligibleOrFailed(){
+	//Check if the note is eligible to be hit
+	private void CheckEligible(){
 		float top = GetTop ();
+
+		//Within the target window
 		if (top >= _targetBottomBound && top <= _targetTopBound) {
 			if(!_eligible){
 				_eligible = true;
-				KeyListenerBehavior listener = KeyManager.GetKeyListenerByPosition(_position);
-				listener.OnKeyPress += SetSuccess;
+
+				//If note is eligible, bind an event to the proper keylistener's OnKeyPress event
+				_listener.OnKeyPress += SetSuccess;
 			}
 		}
+	}
 
+	//Check if the note was missed
+	private void CheckFailed(){
+		float top = GetTop ();
+
+		//Above the target window
 		if (top > _targetTopBound) {
 			if(_eligible){
 				_eligible = false;
-				KeyListenerBehavior listener = KeyManager.GetKeyListenerByPosition(_position);
-				listener.OnKeyPress -= SetSuccess;
+
+				//Remove the listener that was set in CheckEligible
+				_listener.OnKeyPress -= SetSuccess;
+
+				//Fail the note
 				SetFailed();
 			}
 		}
-
 	}
 
 	//Sets the initial X position
@@ -148,48 +166,28 @@ public class NoteBehavior : MonoBehaviour {
 		}
 	}
 
-	//Check if the note is outside of given bounds
-	public bool ExceedsBounds(float top) {
-		return (transform.position.y + (renderer.bounds.size.y / 2) > top);
-	}
-
 	//Set the state and update the color
 	public void SetState(int state){
 		_state = state;
 		SetColorFromState ();
 	}
 
+	//Set the note to successful and trigger points if this is a state update
 	public void SetSuccess()
 	{
 		if(_state != Constants.NOTE_SUCCESS)
 		{
 			SetState(Constants.NOTE_SUCCESS);
-			if(OnNoteHit != null)
-			{
-				OnNoteHit();
-			}
-
-			if(OnNotePoints != null)
-			{
-				OnNotePoints(_pointValue);
-			}
+			_scoreController.NoteHit(_pointValue);
 		}
 	}
-	
+
+	//Set the note to failed and break combo if this is a state update
 	public void SetFailed()
 	{
 		if(_state != Constants.NOTE_SUCCESS){
 			SetState (Constants.NOTE_FAILURE);
-			if(OnNoteMissed != null){
-				OnNoteMissed();
-			}
+			_scoreController.NoteMissed();
 		}
 	}
-
-	//State getter
-	public int GetState()
-	{
-		return _state;
-	}
-
 }

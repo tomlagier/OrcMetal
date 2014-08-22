@@ -4,13 +4,13 @@ using System.Collections;
 public class ScoreManager : MonoBehaviour {
 
 	//Score text and score
-	public GUIText scoreText;
-	public int score;
+	public GUIText _scoreText;
+	public int _score;
 
 
 	// Use this for initialization
 	void Start () {
-		score = 0;
+		_score = 0;
 		UpdateScoreText ();
 	}
 	
@@ -21,14 +21,12 @@ public class ScoreManager : MonoBehaviour {
 
 	void UpdateScoreText()
 	{
-		scoreText.text = "Score: " + score; 
+		_scoreText.text = "Score: " + _score; 
 	}
 
 	public void AddScore (int newScoreValue)
 	{
-		score += newScoreValue;
+		_score += newScoreValue;
 		UpdateScoreText ();
 	}
-
-
 }
