@@ -28,4 +28,9 @@ public class ScoreManager : MonoBehaviour {
 		_score += newScoreValue;
 		UpdateScoreText ();
 	}
+
+	//Getter for score
+	public int GetScore(){
+		return _score;
+	}
 }

@@ -45,9 +45,9 @@ public class MoraleManager : MonoBehaviour {
 
 	//Increase morale on note hit, to maximum of maxValue, update morale text, and return whether we are currently in high morale threshold
 	public bool NoteHit(){
-		if (_current < (_maxValue - _noteHit)) {
-			_current += _noteHit;
-		} else {
+		_current += _noteHit;
+
+		if(_current > _maxValue){
 			_current = _maxValue;
 		}
 
@@ -62,9 +62,9 @@ public class MoraleManager : MonoBehaviour {
 
 	//Decrease morale to a minimum of 0, update GUI text, and return whether we are in low morale threshold
 	public bool NoteMiss(){
-		if(_current > _noteMiss){
-			_current -= _noteMiss;
-		} else {
+		_current -= _noteMiss;
+
+		if(_current < 0) {
 			_current = 0;
 		}
 
@@ -80,6 +80,10 @@ public class MoraleManager : MonoBehaviour {
 	//Getter for current morale
 	public int GetMorale(){
 		return _current;
+	}
+
+	public void SetMorale(int morale){
+		_current = morale;
 	}
 
 	//Update morale text

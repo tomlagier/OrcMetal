@@ -54,6 +54,10 @@ public abstract class HealthManager : MonoBehaviour {
 	public void TakeDamage(int damage){
 		_health -= damage;
 
+		if (_health < 0) {
+			_health = 0;
+		}
+
 		UpdateHealthText ();
 
 		CheckDeath ();
@@ -61,9 +65,10 @@ public abstract class HealthManager : MonoBehaviour {
 
 	//If object is dead, call death callback
 	private void CheckDeath(){
-		if (_health <= 0) {
+		if (_health == 0) {
 			if (OnDeath != null){
 				OnDeath();
+				End ();
 			}
 		}
 	}
@@ -74,8 +79,17 @@ public abstract class HealthManager : MonoBehaviour {
 	}
 
 	//Remove death handlers from object
-	public void End(){
+	private void End(){
 		OnDeath = null;
+	}
+
+	//Getter for health
+	public int GetHealth(){
+		return _health;
+	}
+
+	public void SetHealth( int health ){
+		_health = health;
 	}
 
 	//Expose update health text method for children

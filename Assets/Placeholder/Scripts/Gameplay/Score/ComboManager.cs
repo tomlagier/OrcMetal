@@ -27,6 +27,11 @@ public class ComboManager : MonoBehaviour {
 		UpdateComboText ();
 	}
 
+	//Getter for combo
+	public int GetCombo(){
+		return _combo;
+	}
+
 	//Update the text
 	private void UpdateComboText(){
 		_comboText.text = "Combo :" + _combo;
